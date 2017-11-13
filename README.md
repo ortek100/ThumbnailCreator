@@ -46,7 +46,7 @@ For deployment in the cloud
 
 Local installation - Create a local repository by cloning  from github - https://github.com/ortek100/ThumbnailCreator.git
 Run from root folder ‘rails server’ to start the service.
-Web server is WEBrick shipped with Ruby.
+Application server is WEBrick shipped with Ruby.
 
 CONFIGURATION
 ----------------------
