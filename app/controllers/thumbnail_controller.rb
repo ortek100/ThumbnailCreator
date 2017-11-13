@@ -96,7 +96,7 @@ class ThumbnailController < ApplicationController
   def generate_path_to_persist
     file_name = SecureRandom.hex
     full_file_name = file_name + DOT + FORMAT
-    Rails.logger.debug("Image will be saved to: " + UPLOAD_URL + full_file_name, full_file_name) #delete
+    Rails.logger.debug("Image will be saved to: " + UPLOAD_URL + full_file_name + full_file_name) #delete
     return UPLOAD_URL + full_file_name, full_file_name
   end
 
