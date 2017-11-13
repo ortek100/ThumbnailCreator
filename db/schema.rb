@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20171112205429) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "image_models", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
