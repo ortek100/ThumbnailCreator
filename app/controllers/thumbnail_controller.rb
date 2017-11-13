@@ -2,7 +2,7 @@ require 'securerandom'
 
 class ThumbnailController < ApplicationController
 
-  UPLOAD_URL = "#{Rails.root}/public/uploads/"
+  UPLOAD_URL = "#{Rails.root}/public/assets/"
   FORMAT = 'jpeg'
   # image padding
   GRAVITY = 'center'
@@ -10,7 +10,7 @@ class ThumbnailController < ApplicationController
   MULTI = 'x'
   RESIZE_CONFIG = '>'
   DOT = '.'
-  IMAGE_FOLDER = '/uploads/'
+  IMAGE_FOLDER = '/assets/'
 
   Rails.logger = Logger.new(STDOUT)
 
@@ -96,7 +96,7 @@ class ThumbnailController < ApplicationController
   def generate_path_to_persist
     file_name = SecureRandom.hex
     full_file_name = file_name + DOT + FORMAT
-    Rails.logger.debug("Image will be saved to: #{full_file_name}")
+    Rails.logger.debug("Image will be saved to: " + UPLOAD_URL + full_file_name, full_file_name) #delete
     return UPLOAD_URL + full_file_name, full_file_name
   end
 
