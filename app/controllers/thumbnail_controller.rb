@@ -12,7 +12,7 @@ class ThumbnailController < ApplicationController
   DOT = '.'
   IMAGE_FOLDER = '/uploads/'
 
-  Rails.logger = Logger.new("#{Rails.root}/log/thumbnail.log")
+  Rails.logger = Logger.new(STDOUT)
 
   def thumbnail_create
 
@@ -66,18 +66,22 @@ class ThumbnailController < ApplicationController
 
       image_url, file_name = generate_path_to_persist
 
+      Rails.logger.debug("saving image")
       #saving the manipulated image
       @image.write image_url
+      Rails.logger.debug("image saved")
 
+      Rails.logger.debug("redirecting to: " + IMAGE_FOLDER + file_name)
       #serving the manipulated image to the client
       redirect_to IMAGE_FOLDER + file_name
 
-    rescue Exception => msg
-      Rails.logger.error("Failed to manipulate image." + msg.to_s)
-      payload = get_payload('Failed to handle request', 422)
-      render :json => payload, :status => :unprocessable_entity
-    end
+      #rescue Exception => msg
+      # Rails.logger.error("Failed to manipulate image." + msg.to_s)
+      #payload = get_payload('Failed to handle request', 422)
+      #render :json => payload, :status => :unprocessable_entity
 
+
+    end
   end
 
   #prepare the payload for the json object
@@ -92,6 +96,7 @@ class ThumbnailController < ApplicationController
   def generate_path_to_persist
     file_name = SecureRandom.hex
     full_file_name = file_name + DOT + FORMAT
+    Rails.logger.debug("Image will be saved to: #{full_file_name}")
     return UPLOAD_URL + full_file_name, full_file_name
   end
 
