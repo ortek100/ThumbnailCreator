@@ -3,6 +3,6 @@ Rails.application.routes.draw do
 
   root 'welcome#index'
   get 'thumbnail' => 'thumbnail#thumbnail_create'
-  #get '*path' => redirect('/'), :constraints => lambda{|req| req.path !~ /\.(jpeg)$/ }
+  get '*path' => redirect('/')
 
 end
