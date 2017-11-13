@@ -2,7 +2,7 @@ require 'securerandom'
 
 class ThumbnailController < ApplicationController
 
-  UPLOAD_URL = 'public/uploads/'
+  UPLOAD_URL = "#{Rails.root}/public/uploads/"
   FORMAT = 'jpeg'
   # image padding
   GRAVITY = 'center'
@@ -73,8 +73,8 @@ class ThumbnailController < ApplicationController
       redirect_to IMAGE_FOLDER + file_name
 
     rescue Exception => msg
-      Rails.logger.error("Failed to manipulate image.", msg)
-      payload ('Failed to handle request', 422)
+      Rails.logger.error("Failed to manipulate image." + msg.to_s)
+      payload = get_payload('Failed to handle request', 422)
       render :json => payload, :status => :unprocessable_entity
     end
 
@@ -120,7 +120,7 @@ class ThumbnailController < ApplicationController
     begin
       @image = MiniMagick::Image.open(@image_model.url)
     rescue Exception => general_msg
-      Rails.logger.error('Failed to open image url.', general_msg)
+      Rails.logger.error('Failed to open image url.' + general_msg.to_s)
       @image = 'General error has occurred in opening the image file.'
     end
 
